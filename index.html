@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>EigenPhi | Wisdom of DeFi</title>
+  <meta name="description" content="EigenPhi - MEV Data Platform. Wisdom of DeFi." />
+  <link rel="icon" href="./favicon.ico" />
+  <link rel="apple-touch-icon" href="./logo192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- 异步加载 Google Fonts，避免首屏阻塞 -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    *, ::after, ::before {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-primary: #000000;
+      --bg-secondary: #0d0d0d;
+      --bg-card: #111111;
+      --border-color: #1e1e1e;
+      --text-primary: #ffffff;
+      --text-secondary: #8a8a8a;
+      --text-muted: #555555;
+      --accent: #4fffb0;
+      --accent-dim: rgba(79, 255, 176, 0.1);
+      --accent-border: rgba(79, 255, 176, 0.25);
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--bg-primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-tagline {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+      margin-left: 4px;
+    }
+
+    /* Main */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+    }
+
+    .container {
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Notice card */
+    .notice-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 48px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notice-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-family: 'Fira Code', monospace;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 32px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .notice-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .notice-text strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 36px 0;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--accent-border);
+      color: var(--accent);
+    }
+
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-logo {
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0 20px;
+      }
+
+      .logo-tagline {
+        display: none;
+      }
+
+      main {
+        padding: 48px 16px;
+      }
+
+      .notice-card {
+        padding: 36px 28px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      footer {
+        padding: 20px 20px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .footer-links {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="https://eigenphi.io">
+      <img src="./logo192.png" alt="EigenPhi logo" />
+      <span class="logo-text">EigenPhi</span>
+      <span class="logo-tagline">// Wisdom of DeFi</span>
+    </a>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="notice-card">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          IMPORTANT NOTICE
+        </div>
+
+        <h1>Service Update</h1>
+
+        <p class="notice-text">
+          Effective <strong>April 15, 2026</strong>, EigenPhi will streamline its operations
+          to focus exclusively on our paid subscriber base. Access to free data and public
+          displays will be suspended at this time. Thank you for being a part of our community
+          as we evolve to better serve the DeFi ecosystem.
+        </p>
+
+        <hr class="divider" />
+
+        <div class="social-links">
+          <a class="social-link" href="https://twitter.com/EigenPhi" target="_blank" rel="noopener noreferrer">
+            <!-- X (Twitter) icon -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            @EigenPhi
+          </a>
+          <a class="social-link" href="mailto:contact@eigenphi.io">
+            <!-- Email icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+            </svg>
+            contact@eigenphi.io
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-left">
+      <img class="footer-logo" src="./logo192.png" alt="" />
+      <span class="footer-copy">&copy; 2026 EigenPhi. All rights reserved.</span>
+    </div>
+    <nav class="footer-links">
+      <a href="https://twitter.com/EigenPhi" target="_blank" rel="noopener noreferrer">Twitter</a>
+      <a href="mailto:contact@eigenphi.io">Contact</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
